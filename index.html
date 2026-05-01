@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Moonlitt Makers · by Ruwaida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Sacramento&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────── */
+    :root {
+      --blush:      #f5e8e2;
+      --blush-mid:  #ebd4cb;
+      --rose:       #e8a4b0;
+      --rose-mid:   #d4788a;
+      --crimson:    #8b1a3a;
+      --ink:        #2c1a1f;
+      --cream:      #fdf6f2;
+      --shadow:     rgba(139,26,58,0.12);
+      --ff-script:  'Sacramento', cursive;
+      --ff-serif:   'Cormorant Garamond', serif;
+      --ff-sans:    'Jost', sans-serif;
+    }
+
+    /* ─── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--blush);
+      color: var(--ink);
+      font-family: var(--ff-sans);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── GRAIN OVERLAY ──────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ─── HEADER ─────────────────────────────────── */
+    header {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      background: var(--cream);
+      border-bottom: 1px solid var(--blush-mid);
+      overflow: hidden;
+    }
+
+    /* brushstroke behind logo text */
+    header::before {
+      content: '';
+      position: absolute;
+      width: 420px; height: 180px;
+      background: var(--rose);
+      opacity: 0.35;
+      border-radius: 60% 80% 70% 50% / 55% 45% 75% 65%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-6deg);
+      filter: blur(18px);
+    }
+
+    .logo-area {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .logo-the {
+      font-family: var(--ff-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      color: var(--ink);
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .logo-main {
+      font-family: var(--ff-script);
+      font-size: clamp(3.2rem, 8vw, 5.5rem);
+      color: var(--crimson);
+      line-height: 0.95;
+      display: block;
+      filter: drop-shadow(1px 2px 0px rgba(139,26,58,0.15));
+    }
+
+    .logo-by {
+      font-family: var(--ff-sans);
+      font-size: 0.65rem;
+      letter-spacing: 0.38em;
+      color: var(--ink);
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    .header-tagline {
+      margin-top: 1.2rem;
+      font-family: var(--ff-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--rose-mid);
+      letter-spacing: 0.02em;
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    /* ─── NAV ────────────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem 1.5rem;
+      background: var(--crimson);
+    }
+
+    nav a {
+      font-family: var(--ff-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    nav a:hover { opacity: 1; }
+
+    /* ─── HERO BANNER ────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--cream) 0%, var(--blush) 100%);
+      padding: 4rem 2rem 3.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--blush-mid);
+    }
+
+    .hero h1 {
+      font-family: var(--ff-serif);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 300;
+      color: var(--crimson);
+      line-height: 1.2;
+    }
+    .hero h1 em {
+      font-family: var(--ff-script);
+      font-size: 1.6em;
+      line-height: 0.8;
+      display: block;
+    }
+
+    .hero p {
+      max-width: 540px;
+      margin: 1.2rem auto 0;
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    /* ─── SECTION TITLES ─────────────────────────── */
+    .section-head {
+      text-align: center;
+      padding: 3.5rem 1.5rem 0;
+    }
+
+    .section-head h2 {
+      font-family: var(--ff-serif);
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 300;
+      color: var(--crimson);
+    }
+
+    .section-head .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 0.8rem auto;
+      max-width: 280px;
+    }
+    .section-head .divider span {
+      flex: 1;
+      height: 1px;
+      background: var(--rose);
+      opacity: 0.5;
+    }
+    .section-head .divider .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rose-mid);
+      flex: none;
+    }
+
+    /* ─── LISTINGS GRID ──────────────────────────── */
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2.5rem auto 0;
+      padding: 0 2rem 4rem;
+    }
+
+    /* ─── CARD ───────────────────────────────────── */
+    .card {
+      background: var(--cream);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px var(--shadow);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background: var(--blush-mid);
+    }
+
+    .card-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .card:hover .card-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    /* placeholder when no image */
+    .card-img-wrap .img-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--blush), var(--blush-mid));
+    }
+    .img-placeholder svg { opacity: 0.3; }
+
+    .card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--crimson);
+      color: var(--cream);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 1px;
+    }
+
+    .card-body {
+      padding: 1.4rem 1.6rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      font-family: var(--ff-serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--crimson);
+      line-height: 1.35;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--ink);
+      opacity: 0.65;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+    }
+    .card-tags span {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--blush);
+      color: var(--rose-mid);
+      padding: 2px 8px;
+      border-radius: 1px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.6rem 1.4rem;
+      border-top: 1px solid var(--blush-mid);
+      margin-top: 0.5rem;
+    }
+
+    .card-price {
+      font-family: var(--ff-serif);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--crimson);
+    }
+
+    .btn-etsy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--crimson);
+      color: var(--cream);
+      font-family: var(--ff-sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border-radius: 1px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-etsy:hover {
+      background: var(--rose-mid);
+      transform: translateX(2px);
+    }
+    .btn-etsy svg { width: 12px; height: 12px; fill: currentColor; }
+
+    /* ─── CTA BANNER ─────────────────────────────── */
+    .cta-banner {
+      background: var(--crimson);
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: var(--rose-mid);
+      opacity: 0.1;
+      border-radius: 50%;
+      top: -200px; right: -150px;
+    }
+    .cta-banner h2 {
+      font-family: var(--ff-script);
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .cta-banner p {
+      color: var(--rose);
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+    }
+    .btn-shop-etsy {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--cream);
+      color: var(--crimson);
+      font-family: var(--ff-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: 1px;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-shop-etsy:hover {
+      background: var(--rose);
+      color: var(--cream);
+      transform: scale(1.03);
+    }
+
+    /* ─── LOADING ────────────────────────────────── */
+    .loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      gap: 1.2rem;
+    }
+    .moon-spin {
+      width: 48px; height: 48px;
+      border: 3px solid var(--blush-mid);
+      border-top-color: var(--crimson);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    .loading-state p {
+      font-family: var(--ff-serif);
+      font-style: italic;
+      color: var(--rose-mid);
+      font-size: 1rem;
+    }
+
+    /* ─── ERROR STATE ────────────────────────────── */
+    .error-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--rose-mid);
+    }
+    .error-state h3 {
+      font-family: var(--ff-serif);
+      font-size: 1.4rem;
+      color: var(--crimson);
+      margin-bottom: 0.5rem;
+    }
+    .error-state p {
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: var(--blush-mid);
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+    footer .footer-logo {
+      font-family: var(--ff-script);
+      font-size: 2rem;
+      color: var(--rose);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+    footer a {
+      color: var(--rose);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { gap: 1.2rem; flex-wrap: wrap; }
+      .listings-grid { padding: 0 1rem 3rem; gap: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+  <div class="logo-area">
+    <span class="logo-the">The</span>
+    <span class="logo-main">Moonlitt<br>Makers</span>
+    <span class="logo-by">by Ruwaida</span>
+  </div>
+  <p class="header-tagline">Handcrafted with love, lit by moonlight ✦</p>
+</header>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav>
+  <a href="#">Home</a>
+  <a href="#listings">Shop</a>
+  <a href="https://www.etsy.com/shop/MoonlittMakers" target="_blank">Visit Etsy</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <h1>Where every piece<br><em>tells a story</em></h1>
+  <p>Welcome to Moonlitt Makers — a small handmade shop crafted with intention and warmth. Browse our latest creations below, or visit our Etsy store for the full collection.</p>
+</section>
+
+<!-- ═══════════ LISTINGS ═══════════ -->
+<section id="listings">
+  <div class="section-head">
+    <h2>Our Latest Listings</h2>
+    <div class="divider">
+      <span></span><span class="dot"></span><span></span>
+    </div>
+  </div>
+
+  <!-- Grid populated by JS -->
+  <div class="listings-grid" id="listings-grid">
+    <div class="loading-state" id="loading-state" style="grid-column: 1/-1;">
+      <div class="moon-spin"></div>
+      <p>Gathering moonlit creations…</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA BANNER ═══════════ -->
+<section class="cta-banner">
+  <h2>See everything ✦</h2>
+  <p>New listings added regularly — don't miss a thing</p>
+  <a class="btn-shop-etsy" href="https://www.etsy.com/shop/MoonlittMakers" target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.5 2C6.26 2 2 6.26 2 11.5S6.26 21 11.5 21c1.69 0 3.28-.44 4.66-1.22l4.2 4.2 1.41-1.41-4.2-4.2C18.56 16.78 21 14.27 21 11.5 21 6.26 16.74 2 11.5 2zm0 2c4.14 0 7.5 3.36 7.5 7.5S15.64 19 11.5 19 4 15.64 4 11.5 7.36 4 11.5 4z"/></svg>
+    Go to Etsy to Search More
+  </a>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer id="contact">
+  <span class="footer-logo">Moonlitt Makers</span>
+  <p>Made with 🌙 by Ruwaida &nbsp;·&nbsp; <a href="https://www.etsy.com/shop/MoonlittMakers" target="_blank">Shop on Etsy</a></p>
+  <p style="margin-top:0.5rem; opacity:0.5;">© 2026 The Moonlitt Makers · All Rights Reserved</p>
+</footer>
+
+<!-- ═══════════ JS ═══════════ -->
+<script>
+  // ── CONFIG ──────────────────────────────────────────────
+  // Point this to your running Python backend.
+  // For local dev: http://localhost:5000/api/listings
+  // For production: https://your-server.com/api/listings
+  const API_URL = "http://localhost:5000/api/listings";
+
+  // Your Etsy shop URL (used for the "view on etsy" fallback)
+  const ETSY_SHOP_URL = "https://www.etsy.com/shop/MoonlittMakers";
+
+  // ── DEMO LISTINGS (shown when backend is not running) ────
+  // Replace or remove these once your backend is live.
+  const DEMO_LISTINGS = [
+    {
+      id: 1,
+      title: "Handmade Crescent Moon Wall Hanging",
+      description: "A dreamy macramé moon wall hanging crafted with natural cotton rope and wooden beads. Perfect for boho nurseries, bedrooms, and reading nooks.",
+      price: "PKR 2,800",
+      image: "",
+      tags: ["macrame", "moon", "handmade", "wall decor"],
+      url: ETSY_SHOP_URL
+    },
+    {
+      id: 2,
+      title: "Pressed Flower Resin Bookmark Set",
+      description: "Set of 3 handcrafted resin bookmarks with real dried wildflowers. Each one is unique — a little piece of nature to keep alongside your stories.",
+      price: "PKR 1,200",
+      image: "",
+      tags: ["resin", "bookmark", "flowers", "gift"],
+      url: ETSY_SHOP_URL
+    },
+    {
+      id: 3,
+      title: "Celestial Soy Wax Candle",
+      description: "Hand-poured soy wax candle with rose and jasmine fragrance, topped with dried petals and a crescent moon charm. Burns up to 40 hours.",
+      price: "PKR 1,650",
+      image: "",
+      tags: ["candle", "soy wax", "rose", "celestial"],
+      url: ETSY_SHOP_URL
+    },
+    {
+      id: 4,
+      title: "Vintage Star Map Print — Custom",
+      description: "A personalised star map showing exactly how the night sky looked on your special date. Printed on premium matte paper, ready to frame.",
+      price: "PKR 3,500",
+      image: "",
+      tags: ["custom", "star map", "print", "anniversary"],
+      url: ETSY_SHOP_URL
+    },
+    {
+      id: 5,
+      title: "Dried Flower Bouquet — Pastel Mix",
+      description: "Eternally beautiful dried flower arrangements in pastel pink, lavender, and ivory. No watering needed — just everlasting blooms.",
+      price: "PKR 1,900",
+      image: "",
+      tags: ["dried flowers", "bouquet", "pastel", "decor"],
+      url: ETSY_SHOP_URL
+    },
+    {
+      id: 6,
+      title: "Hand-lettered Affirmation Cards (Set of 10)",
+      description: "Ten beautifully lettered affirmation cards on thick cotton card stock. Ideal as a gift or daily reminder of your own magic.",
+      price: "PKR 950",
+      image: "",
+      tags: ["cards", "lettering", "affirmation", "gift"],
+      url: ETSY_SHOP_URL
+    }
+  ];
+
+  // ── ICON SVG ─────────────────────────────────────────────
+  const ETSY_ARROW = `<svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 10h14M10 3l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+  const MOON_SVG  = `<svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M27 5C14.85 5 5 14.85 5 27s9.85 22 22 22c3.5 0 6.8-.82 9.72-2.28C32.1 44.5 28 39.2 28 33c0-8.28 6.72-15 15-15 1.08 0 2.13.12 3.14.33A21.93 21.93 0 0027 5z" fill="%238b1a3a" opacity="0.25"/></svg>`;
+
+  // ── CARD BUILDER ─────────────────────────────────────────
+  function buildCard(item, index) {
+    const hasImage = item.image && item.image.length > 0;
+    const delay = (index % 3) * 80;
+
+    const imgHtml = hasImage
+      ? `<img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"img-placeholder\\">${MOON_SVG}</div>'">`
+      : `<div class="img-placeholder">${MOON_SVG}</div>`;
+
+    const tagsHtml = (item.tags || []).map(t =>
+      `<span>${t}</span>`
+    ).join('');
+
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.style.animationDelay = `${delay}ms`;
+
+    card.innerHTML = `
+      <div class="card-img-wrap">
+        ${imgHtml}
+        <span class="card-badge">Handmade</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">${item.title}</h3>
+        <p class="card-desc">${item.description}</p>
+        ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+      </div>
+      <div class="card-footer">
+        <span class="card-price">${item.price}</span>
+        <a class="btn-etsy" href="${item.url}" target="_blank" rel="noopener">
+          View on Etsy ${ETSY_ARROW}
+        </a>
+      </div>
+    `;
+    return card;
+  }
+
+  // ── RENDER LISTINGS ───────────────────────────────────────
+  function renderListings(listings) {
+    const grid = document.getElementById('listings-grid');
+    grid.innerHTML = '';
+
+    if (!listings || listings.length === 0) {
+      grid.innerHTML = `
+        <div class="error-state" style="grid-column:1/-1">
+          <h3>No listings yet ✦</h3>
+          <p>Check back soon — moonlit creations are on their way.</p>
+        </div>`;
+      return;
+    }
+
+    listings.forEach((item, i) => {
+      grid.appendChild(buildCard(item, i));
+    });
+  }
+
+  // ── FETCH FROM BACKEND ────────────────────────────────────
+  async function loadListings() {
+    const grid = document.getElementById('listings-grid');
+
+    try {
+      const res = await fetch(API_URL, { signal: AbortSignal.timeout(8000) });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+
+      if (data.success && data.listings.length > 0) {
+        renderListings(data.listings);
+      } else {
+        throw new Error("Empty or failed response");
+      }
+
+    } catch (err) {
+      console.warn("Backend unavailable, showing demo listings:", err.message);
+      // Show demo listings with a notice
+      renderListings(DEMO_LISTINGS);
+
+      // Add a small notice banner at the top of section
+      const notice = document.createElement('div');
+      notice.style.cssText = `
+        grid-column: 1/-1;
+        background: var(--blush-mid);
+        border-left: 3px solid var(--rose-mid);
+        padding: 0.75rem 1.2rem;
+        font-size: 0.78rem;
+        color: var(--crimson);
+        margin-bottom: -0.5rem;
+        font-family: var(--ff-sans);
+      `;
+      notice.textContent = '✦ Demo mode — start the Python backend to show live Etsy listings.';
+      grid.prepend(notice);
+    }
+  }
+
+  // ── INIT ──────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', loadListings);
+</script>
+
+</body>
+</html>
