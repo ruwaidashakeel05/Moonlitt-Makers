@@ -1,0 +1,27 @@
+# ── SECRET FILES ──────────────────────────
+.env
+.env.*
+*.env
+
+# ── PYTHON ────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+.Python
+venv/
+env/
+.venv/
+
+# ── OS FILES ──────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── EDITORS ───────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
